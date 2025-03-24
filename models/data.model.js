@@ -18,6 +18,7 @@ const categories = (sequelize, Sequelize) => {
             }
         },
         {
+            tablename: 'categories',
             freezeTableName: true,  // แก้ไขเป็น freezeTableName
             timestamps: false
         }
@@ -57,9 +58,15 @@ const products = (sequelize, Sequelize) => {
             }
         },
         {
+            tablename: 'products',
             freezeTableName: true,  // แก้ไขเป็น freezeTableName
             timestamps: false
         }
     );
     return products;
 };
+
+module.exports = {
+    products,
+    categories
+}

@@ -14,10 +14,8 @@ const sequelize = new Sequelize(
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.products = models.products(sequelize, Sequelize);
 db.categories = models.categories(sequelize, Sequelize);
 
-// แก้ไข 'catagory_id' เป็น 'category_id'
 db.categories.hasMany(
     db.products, {
         foreignKey: {
@@ -25,10 +23,3 @@ db.categories.hasMany(
             field: 'category_id'  // ใช้ 'category_id' แทน 'catagory_id'
         }
     });
-
-db.products.belongsTo(
-    db.categories, {
-        foreignKey: 'category_id'  // ใช้ 'category_id' ให้ตรงกัน
-    });
-
-module.exports = db;
