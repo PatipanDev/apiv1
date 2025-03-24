@@ -6,15 +6,19 @@ const categories = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
-                field_name: 'catagory_id'
-
+                field: 'category_id'  // แก้ไขเป็น 'category_id'
             },
-            category_name: { type: Sequelize.STRING(100), field_name: 'catagory_id', },
-            description: { type: Sequelize.STRING(400), field_name: ' description' }
+            category_name: { 
+                type: Sequelize.STRING(100), 
+                field: 'category_name'  // แก้ไขเป็น 'category_name'
+            },
+            description: { 
+                type: Sequelize.STRING(400), 
+                field: 'description'  // แก้ไขเป็น 'description'
+            }
         },
         {
-            tablename: 'categories',
-            freezTableName: true,
+            freezeTableName: true,  // แก้ไขเป็น freezeTableName
             timestamps: false
         }
     );
@@ -26,22 +30,36 @@ const products = (sequelize, Sequelize) => {
         'products',
         {
             product_id: {
+                type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
-                field_name: 'catagory_id'
+                field: 'product_id'  // แก้ไขเป็น 'product_id'
             },
-            product_name: {type: Sequelize.STRING(100), field_name:'product_name'},
-            description: { type: Sequelize.STRING(400), field_name: ' description'},
-            category_id: {type: Sequelize.INTEGR, field_name: 'category'},
-            unit_price:{type: Sequelize.DOUBLE, field_name:'unit_price'},
-            quantity: {type: Sequelize.INTEGR, field_name: 'quantity'}
+            product_name: { 
+                type: Sequelize.STRING(100), 
+                field: 'product_name'  // แก้ไขเป็น 'product_name'
+            },
+            description: { 
+                type: Sequelize.STRING(400), 
+                field: 'description'  // แก้ไขเป็น 'description'
+            },
+            category_id: { 
+                type: Sequelize.INTEGER,  // แก้ไขเป็น Sequelize.INTEGER
+                field: 'category_id'  // แก้ไขเป็น 'category_id'
+            },
+            unit_price: {
+                type: Sequelize.DOUBLE, 
+                field: 'unit_price'  // แก้ไขเป็น 'unit_price'
+            },
+            quantity: { 
+                type: Sequelize.INTEGER,  // แก้ไขเป็น Sequelize.INTEGER
+                field: 'quantity'  // แก้ไขเป็น 'quantity'
+            }
         },
         {
-            tablename: 'products',
-            freezTableName: true,
+            freezeTableName: true,  // แก้ไขเป็น freezeTableName
             timestamps: false
         }
-
-    )
+    );
     return products;
 };
