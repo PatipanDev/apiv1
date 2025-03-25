@@ -1,6 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const portNumber =  5000;
+const portNumber = 7890;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
 
@@ -9,6 +10,8 @@ const categoryController = require('./controller/category.controller')
 app.listen(portNumber, "10.7.10.15", () => {
     console.log('API run at', + portNumber)
 });
+
+app.use(cors());
 
 app.get('/api/test', (req,res)=>{
     const id = req.query.id;

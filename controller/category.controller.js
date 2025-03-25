@@ -1,7 +1,7 @@
 const { QueryTypes, where } = require('sequelize');
-const categoriesModel = require('../models/categories.model');
+const productsModel = require('../models/db');
 const { INSERT } = require('sequelize/lib/query-types');
-const { products, categories, Sequelize, sequelize } = categoriesModel
+const { products, categories, Sequelize, sequelize } = productsModel
 productsModel.sequelize.sync();
 
 
