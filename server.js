@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const portNumber =  7890;
+const portNumber =  5000;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
 
-app.listen(portNumber, "10.7.10.14", () => {
+// app.use(express.json());  // เพิ่มตรงนี้
+
+app.listen(portNumber, "10.7.10.15", () => {
     console.log('API run at', + portNumber)
 });
 
@@ -54,14 +56,14 @@ app.post('/api/test', (req,res)=> {
 // })
 
 
-app.get('api/category', (req,res)=> {
-    categoryController.isertCategory(req,res);
+app.get('/api/category', (req, res) => {
+    categoryController.getCategory(req, res);
+});
 
-})
+app.post('/api/category', (req, res) => {
+    categoryController.insertCategory(req, res);
+});
 
-app.post('api/category', (req,res)=> {
-    categoryController.getCategory(req,res);
-})
 
 
 
