@@ -6,7 +6,18 @@ productsModel.sequelize.sync();
 
 
 
-const getCategorybyID = (req, res) => { };
+const getCategorybyID = async (req, res) => { 
+    let id = req.params.id
+    let data_ = await categories.findOne({
+        where:{
+            category_id: id
+        }
+    });
+    res.json({
+        'status': 'ok',
+        'data': data_
+    })
+};
 
 
 
@@ -15,7 +26,15 @@ const getCategorybyID = (req, res) => { };
 
 // const insertCategory = async (req, res) => {
 //     try {
-//         let {category_name, description} = req.body;
+//         const {category_name, description} = req.body;
+
+//         if (!category_name || !description) {
+//             return res.status(400).json({
+//                 status: 'fail',
+//                 message: 'Missing category_name or description'
+//             });
+//         }
+
 //         await categories.create({
 //             category_name: category_name,
 //             description: description
@@ -33,9 +52,12 @@ const getCategorybyID = (req, res) => { };
 // };
 
 const insertCategory = async (req, res) => {
+    let body = req.body;
     try {
-        let body = req.body;
-        await categories.create(body);
+        await categories.create({
+            category_name: body.category_name,
+            description: body.description
+        });
         res.json({
             status: 'ok',
             message: 'Insert 1 row'
@@ -50,24 +72,28 @@ const insertCategory = async (req, res) => {
 
 
 const getCategory = async(req, res) => { 
-    let id = req.params.id
-    let data_ = await categories.findOne({
-        where:{
-            category_id: id
-        }
-    });
-    res.json({
-        'status': 'ok',
-        'data': data_
-    })
+    try{
+        let data_ = await categories.findAll({
+        });
+        res.json({
+            'status': 'ok', 
+            'data': data_
+        })
+    }catch{
+        res.status(500).json({
+            status: 'fail',
+            message:error.message
+        })
+    }
+    
 };
 
 const updateCategory = async(req,res) => {
     let id = req.params.id
-    const {category_id, category_name} = req.body
+    let body = req.body
     const updatedata = await categories.update({
-        category_id: category_id,
-        category_name: category_name
+        category_name: body.category_name,
+        description: body.description
     },
     {
         where:{
@@ -75,12 +101,12 @@ const updateCategory = async(req,res) => {
         }
     })
 
-    if(updatedata){
-        res.json({
+    if(updatedata[0] == 1 ){
+        res.status(200).json({
             'message': 'update sucsessfully'
         })
     }else{
-        res.json({
+        res.status(500).json({
             'message': 'update error'
         })
     } 

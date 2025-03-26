@@ -5,9 +5,9 @@ const portNumber = 7890;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
 
-// app.use(express.json());  // เพิ่มตรงนี้
+app.use(express.json());  // เพิ่มตรงนี้
 
-app.listen(portNumber, "10.7.10.15", () => {
+app.listen(portNumber, "10.7.10.16", () => {
     console.log('API run at', + portNumber)
 });
 
@@ -50,13 +50,15 @@ app.post('/api/test', (req,res)=> {
     })
 })
 
-// app.get('api/product', (req,res)=> {
-//     productController.getProduct(req,res);
-// })
 
-// app.post('api/product', (req,res)=> {
-//     productController.getProduct(req,res);
-// })
+///category
+app.get('/api/category/:id', (req,res)=> {
+    categoryController.getCategorybyID(req,res);
+})
+
+app.put('/api/category/:id', (req, res)=>{
+    categoryController.updateCategory
+})
 
 
 app.get('/api/category', (req, res) => {
@@ -65,6 +67,10 @@ app.get('/api/category', (req, res) => {
 
 app.post('/api/category', (req, res) => {
     categoryController.insertCategory(req, res);
+});
+
+app.delete('/api/category/:id', (req, res) => {
+    categoryController.deleteCategory(req, res);
 });
 
 
