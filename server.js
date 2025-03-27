@@ -5,6 +5,7 @@ const portNumber = 7890;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
 const jwtAuth = require("./authen")
+const userLogin = require('./controller/users.controller')
 
 app.use(express.json());  // เพิ่มตรงนี้
 
@@ -77,7 +78,7 @@ app.delete('/api/category/:id',jwtAuth.authCheck,(req, res) => {
 });
 
 
-
+//การล็อกอิน
 app.post('/api/login',(req,res) =>{
     console.log("req.body:", req.body); // 🐞 Debugging
     jwtAuth.setToken(req,res)
@@ -86,6 +87,12 @@ app.post('/api/login',(req,res) =>{
 app.get('/api/userprofile', jwtAuth.authCheck,(req,res) =>{
     jwtAuth.getUserProfile(req,res)
 });
+
+//การสมัครสมาชิก
+app.post('/api/userregister', (req,res)=>{
+    userLogin.register(req,res)
+})
+
 
 
 
