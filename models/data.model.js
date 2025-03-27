@@ -66,7 +66,47 @@ const products = (sequelize, Sequelize) => {
     return products;
 };
 
+const users = (sequelize, Sequelize) => {
+    const users = sequelize.define(
+        'users', {
+            username: {
+                type: Sequelize.STRING(50),
+                primaryKey: true,
+                field: 'username'  // ✅ ใช้ field แทน field_name
+            },
+            password: {
+                type: Sequelize.STRING(100), 
+                field: 'password'
+            },
+            email: {
+                type: Sequelize.STRING(50), 
+                field: 'email'
+            },
+            nameTH: {
+                type: Sequelize.STRING(100), 
+                field: 'nameTH'
+            },
+            nameEN: {
+                type: Sequelize.STRING(100), 
+                field: 'nameEN'
+            },
+            role: {
+                type: Sequelize.STRING(50), 
+                field: 'role'
+            }
+        }, 
+        {
+            tablename: 'users',  // ✅ ใช้ tableName (ตัว "T" เล็ก)
+            freezeTableName: true,  
+            timestamps: false
+        }
+    );
+    return users;
+}
+
+
 module.exports = {
     products,
-    categories
+    categories,
+    users
 }

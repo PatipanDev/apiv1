@@ -4,10 +4,11 @@ const app = express();
 const portNumber = 7890;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
+const jwtAuth = require("./authen")
 
 app.use(express.json());  // เพิ่มตรงนี้
 
-app.listen(portNumber, "10.7.10.16", () => {
+app.listen(portNumber, "10.7.10.18", () => {
     console.log('API run at', + portNumber)
 });
 
@@ -56,9 +57,7 @@ app.get('/api/category/:id', (req,res)=> {
     categoryController.getCategorybyID(req,res);
 })
 
-app.put('/api/category/:id', (req, res)=>{
-    categoryController.updateCategory
-})
+
 
 
 app.get('/api/category', (req, res) => {
@@ -69,8 +68,17 @@ app.post('/api/category', (req, res) => {
     categoryController.insertCategory(req, res);
 });
 
+app.put('/api/category/:id', (req, res)=>{
+    categoryController.updateCategory(req, res)
+})
+
 app.delete('/api/category/:id', (req, res) => {
     categoryController.deleteCategory(req, res);
+});
+
+app.post('/api/login',(req,res) =>{
+    console.log("req.body:", req.body); // 🐞 Debugging
+    jwtAuth.setToken(req,res)
 });
 
 

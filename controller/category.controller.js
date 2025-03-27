@@ -22,34 +22,22 @@ const getCategorybyID = async (req, res) => {
 
 
 
-
-
-// const insertCategory = async (req, res) => {
-//     try {
-//         const {category_name, description} = req.body;
-
-//         if (!category_name || !description) {
-//             return res.status(400).json({
-//                 status: 'fail',
-//                 message: 'Missing category_name or description'
-//             });
-//         }
-
-//         await categories.create({
-//             category_name: category_name,
-//             description: description
-//         });
-//         res.json({
-//             status: 'ok',
-//             message: 'Insert 1 row'
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             status: 'fail',
-//             message: error.message // ✅ แก้ให้แสดงข้อความผิดพลาด
-//         });
-//     }
-// };
+const getCategory = async(req, res) => { 
+    try{
+        let data_ = await categories.findAll({
+        });
+        res.json({
+            'status': 'ok', 
+            'data': data_
+        })
+    }catch{
+        res.status(500).json({
+            status: 'fail',
+            message:error.message
+        })
+    }
+    
+};
 
 const insertCategory = async (req, res) => {
     let body = req.body;
@@ -70,24 +58,6 @@ const insertCategory = async (req, res) => {
     }
 };
 
-
-const getCategory = async(req, res) => { 
-    try{
-        let data_ = await categories.findAll({
-        });
-        res.json({
-            'status': 'ok', 
-            'data': data_
-        })
-    }catch{
-        res.status(500).json({
-            status: 'fail',
-            message:error.message
-        })
-    }
-    
-};
-
 const updateCategory = async(req,res) => {
     let id = req.params.id
     let body = req.body
@@ -100,7 +70,6 @@ const updateCategory = async(req,res) => {
             category_id: id
         }
     })
-
     if(updatedata[0] == 1 ){
         res.status(200).json({
             'message': 'update sucsessfully'
