@@ -19,4 +19,17 @@ const login = async (username, password) => {
     }
 };
 
-module.exports = { login }
+const userCheck = async (username) =>{
+    let data_ = await users.findOne({
+        where: {
+            username: username 
+        }
+    });
+    if(data_){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+module.exports = { login, userCheck}

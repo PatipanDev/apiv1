@@ -14,7 +14,7 @@ app.listen(portNumber, "10.7.10.18", () => {
 
 app.use(cors());
 
-app.get('/api/test', (req,res)=>{
+app.get('/api/test',jwtAuth.authCheck, (req,res)=>{
     const id = req.query.id;
     const fac = req.query.faculty
     if(id != undefined && fac != undefined){
@@ -32,13 +32,13 @@ app.get('/api/test', (req,res)=>{
     }
 )
 
-app.get('/:xxx', (req,res)=>{
-    const aaa = req.params.xxx;
-    res.json({
-        'status': 'ok',
-        'message': 'Hello' + aaa
-    })
-})
+// app.get('/:xxx', (req,res)=>{
+//     const aaa = req.params.xxx;
+//     res.json({
+//         'status': 'ok',
+//         'message': 'Hello' + aaa
+//     })
+// })
 
 
 
@@ -59,27 +59,48 @@ app.get('/api/category/:id', (req,res)=> {
 
 
 
-
+//category
 app.get('/api/category', (req, res) => {
     categoryController.getCategory(req, res);
 });
 
-app.post('/api/category', (req, res) => {
+app.post('/api/category',jwtAuth.authCheck, (req, res) => {
     categoryController.insertCategory(req, res);
 });
 
-app.put('/api/category/:id', (req, res)=>{
+app.put('/api/category/:id',jwtAuth.authCheck, (req, res)=>{
     categoryController.updateCategory(req, res)
 })
 
-app.delete('/api/category/:id', (req, res) => {
+app.delete('/api/category/:id',jwtAuth.authCheck,(req, res) => {
     categoryController.deleteCategory(req, res);
 });
+
+
 
 app.post('/api/login',(req,res) =>{
     console.log("req.body:", req.body); // 🐞 Debugging
     jwtAuth.setToken(req,res)
 });
+
+app.get('/api/userprofile', jwtAuth.authCheck,(req,res) =>{
+    jwtAuth.getUserProfile(req,res)
+});
+
+
+
+
+app.get('/:xxx',(req,res)=>{
+    jwtAuth.authCheck(req,res)
+});
+
+app.get('/api/test/:xxx', jwtAuth.authCheck,(req,res)=>{
+    let aaa= req.params.xxx;
+    res.json({
+        'status': 'ok',
+        'message': 'Hello'+ aaa
+    })
+})
 
 
 
