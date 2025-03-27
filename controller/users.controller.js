@@ -6,8 +6,9 @@ usersModel.sequelize.sync()
 const login = async (username, password) => {
     let data_ = await users.findOne({
         where: {
-            [Op.and]: [{ username: username },
-            { password: password }
+            [Op.and]: [
+                { username: username },
+                { password: password }
             ]
             ,
         }
@@ -39,7 +40,7 @@ const register = async (req, res) => {
         email: req.body.email,
         nameTH: req.body.nameTH,
         nameEN: req.body.nameEN,
-        role: req.bosy.role
+        role: req.body.role
     };
     let hasUser = await userCheck(useraccout.username);
     //ถ้าไม่ซ้ำ
@@ -47,7 +48,7 @@ const register = async (req, res) => {
         await users.create(useraccout)
         res.json({
             'status': 'ok',
-            'message': 'insert new user.'
+            'message': 'insert new user.',
         })
     } else {
         res.json({
