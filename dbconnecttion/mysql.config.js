@@ -1,7 +1,9 @@
-module.exports ={
-    HOST:'127.0.0.1',
-    USER:'root',
-    PASSWORD:'',
-    DB:'product_shop',
-    dialect:'mysql'
-}
+require('dotenv').config();
+
+module.exports = {
+  HOST: process.env.MSQL_HOST,
+  USER: process.env.MSQL_USER,
+  PASSWORD: process.env.MSQL_PASSWORD,
+  DB: process.env.MSQL_DB,
+  dialect: 'mysql'
+};

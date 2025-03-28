@@ -1,8 +1,8 @@
 const { QueryTypes, where } = require('sequelize');
-const productsModel = require('../models/db');
+const dbModel = require('../models/db');
 const { INSERT } = require('sequelize/lib/query-types');
-const { products, categories, Sequelize, sequelize } = productsModel
-productsModel.sequelize.sync();
+const {categories} = dbModel
+dbModel.sequelize.sync();
 
 
 
@@ -72,6 +72,7 @@ const updateCategory = async(req,res) => {
     })
     if(updatedata[0] == 1 ){
         res.status(200).json({
+            'status': 'ok',
             'message': 'update sucsessfully'
         })
     }else{
@@ -90,7 +91,7 @@ const deleteCategory = async (req, res) => {
     })
     if(deleteData){
         res.json({
-            'message':'sucsfull'
+            'message':'sucsessfully'
         })
     }
 };

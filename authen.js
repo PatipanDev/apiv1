@@ -31,6 +31,7 @@ const setToken = async (req, res) => {
 
 const authCheck = async (req, res, next) => {
     let token = req.headers.authorization;
+    console.log(token)
     try {
         let payload = jwt.verify(token, SECRET_KEY); // กำหนด SECRET_KEY
         let userChk = await loginAuth.userCheck(payload.username);

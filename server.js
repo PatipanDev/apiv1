@@ -1,15 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const portNumber = 7890;
 const productController = require('./controller/product.controller');
 const categoryController = require('./controller/category.controller')
 const jwtAuth = require("./authen")
 const userLogin = require('./controller/users.controller')
+require('dotenv').config(); 
+
+
+const portNumber = process.env.PORT;
+const hostnode = process.env.HOSTNODE
 
 app.use(express.json());  // เพิ่มตรงนี้
 
-app.listen(portNumber, "10.7.10.18", () => {
+app.listen(portNumber, hostnode, () => {
     console.log('API run at', + portNumber)
 });
 
@@ -53,14 +57,12 @@ app.post('/api/test', (req,res)=> {
 })
 
 
+
 ///category
 app.get('/api/category/:id', (req,res)=> {
     categoryController.getCategorybyID(req,res);
 })
 
-
-
-//category
 app.get('/api/category', (req, res) => {
     categoryController.getCategory(req, res);
 });
@@ -76,6 +78,28 @@ app.put('/api/category/:id',jwtAuth.authCheck, (req, res)=>{
 app.delete('/api/category/:id',jwtAuth.authCheck,(req, res) => {
     categoryController.deleteCategory(req, res);
 });
+
+//product
+app.get('/api/product', (req, res) => {
+    productController.getProduct(req, res);
+});
+
+app.get('/api/product/:id', (req,res)=> {
+    productController.getProductbyID(req,res);
+})
+
+app.post('/api/product',jwtAuth.authCheck, (req, res) => {
+    productController.insertProduct(req, res);
+});
+
+app.put('/api/product/:id',jwtAuth.authCheck, (req, res)=>{
+    productController.updateProduct(req, res)
+})
+
+app.delete('/api/product/:id',jwtAuth.authCheck,(req, res) => {
+    productController.deleteProduct(req, res);
+});
+
 
 
 //การล็อกอิน
